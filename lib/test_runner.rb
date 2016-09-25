@@ -6,7 +6,6 @@ require 'fileutils'
 class TestRunner
   attr_accessor :test_params
   attr_accessor :test
-  attr_accessor :run_at
   attr_accessor :result
 
   def initialize
@@ -29,8 +28,8 @@ class TestRunner
   end
 
   def run_at
-    raise 'Test not yet run' if @run_at.nil?
-    @run_at
+    raise 'Test not yet run' if @start_at.nil?
+    @start_at
   end
 
   def result
@@ -45,14 +44,12 @@ class TestRunner
   end
 
   def host_info
-  response = HTTParty.get 'https://ifconfig.co/json'
-  JSON.parse(response.body)
+    response = HTTParty.get 'https://ifconfig.co/json'
+    JSON.parse(response.body)
   end
 
   def to_data
     {
-      time: { start_at: @start_at,
-              end_at: @end_at },
       local_info: host_info,
       test_params: @test_params,
       latency: {
@@ -66,7 +63,9 @@ class TestRunner
         raw: result.download_rate,
         pretty: result.pretty_download_rate
       },
-      server: result.server
+      server: result.server,
+      time: { start_at: @start_at,
+              end_at: @end_at }
     }
   end
 
