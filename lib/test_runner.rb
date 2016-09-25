@@ -1,4 +1,5 @@
 require 'speedtest'
+require 'httparty'
 require 'fileutils'
 
 # The TestRunner
@@ -34,16 +35,22 @@ class TestRunner
 
   def result
     @start_at ||= Time.now
-    @result ||= @test.run
+    @result ||= @test.rune
     @end_at ||= Time.now
 
     @result
+  end
+
+  def host_info
+  response = HTTParty.get 'https://ifconfig.co/json'
+  JSON.parse(response.body)
   end
 
   def to_data
     {
       time: { start_at: @start_at,
               end_at: @end_at },
+      local_info: host_info,
       test_params: @test_params,
       latency: {
         pretty: result.latency
