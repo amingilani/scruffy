@@ -1,1 +1,3 @@
-gem 'net-ping', '~> 1.7', '>= 1.7.8'
+source 'https://rubygems.org'
+
+gem 'speedtest'
