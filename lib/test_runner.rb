@@ -35,7 +35,7 @@ class TestRunner
 
   def result
     @start_at ||= Time.now
-    @result ||= @test.rune
+    @result ||= @test.run
     @end_at ||= Time.now
 
     @result
