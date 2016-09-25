@@ -35,7 +35,10 @@ class TestRunner
 
   def result
     @start_at ||= Time.now
-    @result ||= @test.run
+    if @result.nil?
+      puts "The time is: #{Time.now}"
+      @result = @test.run
+    end
     @end_at ||= Time.now
 
     @result
