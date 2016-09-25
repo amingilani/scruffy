@@ -17,7 +17,7 @@ class TestRunner
   end
 
   def test_params
-    {
+    @test_params ||= {
       download_runs: 1,
       upload_runs: 1,
       ping_runs: 10,
