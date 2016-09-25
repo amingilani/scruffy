@@ -1,11 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chronic (0.10.2)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     multi_xml (0.5.5)
     speedtest (0.2.3)
       httparty (~> 0.13)
+    whenever (0.9.7)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -13,6 +16,7 @@ PLATFORMS
 DEPENDENCIES
   httparty
   speedtest
+  whenever
 
 BUNDLED WITH
    1.13.1
