@@ -73,7 +73,7 @@ class TestRunner
     FileUtils.mkdir_p(folder) unless File.directory?(folder)
     line = to_data.to_json
 
-    open("./#{folder}/#{date}.json", 'a') do |f|
+    open("#{folder}/#{date}.json", 'a') do |f|
       f << "#{line}\n"
     end
   end
