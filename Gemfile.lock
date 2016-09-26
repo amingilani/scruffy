@@ -5,6 +5,7 @@ GEM
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     multi_xml (0.5.5)
+    snmp (1.2.0)
     speedtest (0.2.3)
       httparty (~> 0.13)
     whenever (0.9.7)
@@ -15,6 +16,7 @@ PLATFORMS
 
 DEPENDENCIES
   httparty
+  snmp
   speedtest
   whenever
 
