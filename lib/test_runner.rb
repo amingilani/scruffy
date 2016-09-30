@@ -53,17 +53,33 @@ class TestRunner
       local_info: host_info,
       test_params: @test_params,
       latency: result.latency,
-      upload_rate: {
-        raw: result.upload_rate,
-        pretty: result.pretty_upload_rate
-      },
-      download_rate: {
-        raw: result.download_rate,
-        pretty: result.pretty_download_rate
-      },
+      upload_rate: upload_rate_hash,
+      download_rate: download_rate_hash,
       server: result.server,
-      time: { start_at: @start_at,
-              end_at: @end_at }
+      time: timestamp_hash
+    }
+  end
+
+  private
+
+  def upload_rate_hash
+    {
+      raw: result.upload_rate,
+      pretty: result.pretty_upload_rate
+    }
+  end
+
+  def download_rate_hash
+    {
+      raw: result.download_rate,
+      pretty: result.pretty_download_rate
+    }
+  end
+
+  def timestamp_hash
+    {
+      start_at: @start_at,
+      end_at: @end_at
     }
   end
 end
