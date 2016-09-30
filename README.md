@@ -4,7 +4,7 @@ A simple script to continuously test and report the quality of your DSL connecti
 
 ## Why
 
-My ISP is full of sh*t, and doesn't run automated tests. Or if they do, they're programmed by people that couldn't count past ten because they ran out of fingers.
+My ISP is full of sh*t, and doesn't run automated tests. Or if they do, they're programmed by people that have trouble counting past ten because they run out of fingers.
 
 ## How it works
 
