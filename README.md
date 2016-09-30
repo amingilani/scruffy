@@ -18,6 +18,7 @@ Scruffy checks and logs:
 
 1. Log into your router's configuration panel and enable SNMP.
 2. Do the following:
+    
     ```
     sudo ln -s /absolute/path/to/project /usr/local/bin
     cd /usr/local/bin/scruffy
