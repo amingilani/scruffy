@@ -12,13 +12,13 @@ Scruffy checks and logs:
 
 1. Speed via [speedtest](https://speedtest.net);
 2. Local IP details via [ifconfig](https://ifconfig.co)
-3. ADSL Line stats via SNP from your ADSL router
+3. ADSL Line stats via SNMP from your ADSL router
 
 ## Setup
 
 1. Log into your router's configuration panel and enable SNMP.
 2. Do the following:
-    
+
     ```
     sudo ln -s /absolute/path/to/project /usr/local/bin
     cd /usr/local/bin/scruffy
