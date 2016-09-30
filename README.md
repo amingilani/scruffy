@@ -8,7 +8,8 @@ My ISP is full of sh*t, and doesn't run automated tests. Or if they do, they're 
 
 ## How it works
 
-Scruffy checks and logs
+Scruffy checks and logs:
+
 1. Speed via [speedtest](https://speedtest.net);
 2. Local IP details via [ifconfig](https://ifconfig.co)
 3. ADSL Line stats via SNP from your ADSL router
