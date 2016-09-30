@@ -37,3 +37,6 @@ build/
 
 # the results
 logs
+
+#byebug
+.byebug_history
