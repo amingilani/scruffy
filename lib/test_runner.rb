@@ -52,9 +52,7 @@ class TestRunner
     {
       local_info: host_info,
       test_params: @test_params,
-      latency: {
-        pretty: result.latency
-      },
+      latency: result.latency,
       upload_rate: {
         raw: result.upload_rate,
         pretty: result.pretty_upload_rate
