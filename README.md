@@ -61,7 +61,9 @@ Every 30 minutes, scruffy stores the result at `logs/YYYY-MM.log`
             "raw": 1829020.0705889228, // bytes
             "pretty": "1.74 Mbps"// in a pretty format
         },
+        // speedtest server tested against
         "server": "http://speedtest.ptcl.net",
+        // timestamp
         "time": {
             "start_at": "2016-09-30 23:51:45 +0500", // started at
             "end_at": "2016-09-30 23:53:27 +0500" // finished at
