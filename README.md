@@ -28,7 +28,7 @@ Scruffy checks and logs:
 
 ## Output
 
-Every 30 minutes, the scruffy stores the result at `logs/YYYY-MM.log`
+Every 30 minutes, scruffy stores the result at `logs/YYYY-MM.log`
 
 ```js
 {
