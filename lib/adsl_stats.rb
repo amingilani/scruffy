@@ -37,7 +37,7 @@ end
       ['downstream_attenuation', 'adslAturCurrAtn', '1.3.6.1.2.1.10.94.1.1.3.1.5.4'],
       ['downstream_output_power', 'adslAtucCurrOutputPwr', '1.3.6.1.2.1.10.94.1.1.2.1.7.4'],
       ['downstream_attainable_rate', 'adslAturCurrAttainableRate', '1.3.6.1.2.1.10.94.1.1.3.1.8.4'],
-      ['downstream_rate', 'adslAturChanCurrTxRate', '1.3.6.1.2.1.10.94.1.1.5.1.2.4']
+      # ['downstream_rate', 'adslAturChanCurrTxRate', '1.3.6.1.2.1.10.94.1.1.5.1.2.4']
     ]
   end
 end
