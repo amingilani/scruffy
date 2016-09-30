@@ -78,3 +78,9 @@ Every 30 minutes, the test runs stores the result at `logs/YYYY-MM.log`
     }
 }
 ```
+
+## TODO
+
+1. Use SQLite to store the log instead of a file.
+2. Show analytics via a webserver
+3. Sync backup db to s3 periodically
