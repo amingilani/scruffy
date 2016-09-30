@@ -2,7 +2,16 @@
 
 A simple script to continuously test and report the quality of your DSL connection.
 
-I made this because my ISP is full of sh*t, and doesn't run automated tests. Or if they do, they're programmed by people that couldn't count past ten because they ran out of fingers.
+## Why
+
+My ISP is full of sh*t, and doesn't run automated tests. Or if they do, they're programmed by people that couldn't count past ten because they ran out of fingers.
+
+## How it works
+
+Scruffy checks and logs
+1. Speed via [speedtest](https://speedtest.net);
+2. Local IP details via [ifconfig](https://ifconfig.co)
+3. ADSL Line stats via SNP from your ADSL router
 
 ## Setup
 
