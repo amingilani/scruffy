@@ -66,7 +66,7 @@ Every 30 minutes, the test runs stores the result at `logs/YYYY-MM.log`
             "end_at": "2016-09-30 23:53:27 +0500" // finished at
         }
     },
-    // adsl line test, these are self explanatory
+    // adsl line tests, these are self explanatory
     "adsl_test": {
         "upstream_snr_margin": 70,
         "upstream_attenuation": 79,
