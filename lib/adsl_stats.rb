@@ -3,48 +3,41 @@ require 'snmp'
 # Fetches the ADSL stats via SNMP from the router
 class AdslStats
   include SNMP
+
+  attr_accessor :result
+
   def initialize
     define_oids
     Manager.open(host: '192.168.1.1') do |manager|
-      response = manager.get([
-                               @adslAtucCurrSnrMgn_OID,
-                               @adslAtucCurrAtn_OID,
-                               @adslAtucCurrOutputPwr_OID,
-                               @adslAtucCurrAttainableRate_OID,
-                               @adslAturCurrSnrMgn_OID,
-                               @adslAturCurrAtn_OID,
-                               @adslAturCurrOutputPwr_OID,
-                               @adslAturCurrAttainableRate_OID,
-                               @adslAturChanCurrTxRate_OID
-                             ])
+      response = manager.get(@oids.map(&:last))
       @list = response.varbind_list
     end
-    @list
+    # result is a hash of oid names and values
+    @result = @list.each_with_index.map { |v, i| [@oids.map(&:first)[i], v.value.to_i] }.to_h
   end
 
   private
 
-  # def define_oids
-  #   @adslAtucCurrSnrMgn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.4.4'
-  #   @adslAtucCurrAtn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.5.4'
-  #   @adslAtucCurrOutputPwr_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.7'
-  #   @adslAtucCurrAttainableRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.8'
-  #   @adslAturCurrSnrMgn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.4'
-  #   @adslAturCurrAtn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.5'
-  #   @adslAturCurrOutputPwr_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.7'
-  #   @adslAturCurrAttainableRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.8'
-  #   @adslAturChanCurrTxRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.5.1.2'
-  # end
+def foo(list)
+  new_list = []
+  list.each do |member|
+    new_list << member
+  end
+  new_list
+end
 
   def define_oids
-    @adslAtucCurrSnrMgn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.4.4'
-    @adslAtucCurrAtn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.5.4'
-    @adslAtucCurrOutputPwr_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.7.4'
-    @adslAtucCurrAttainableRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.2.1.8.4'
-    @adslAturCurrSnrMgn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.4.4'
-    @adslAturCurrAtn_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.5.4'
-    @adslAturCurrOutputPwr_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.7.4'
-    @adslAturCurrAttainableRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.3.1.8.4'
-    @adslAturChanCurrTxRate_OID = ObjectId.new '1.3.6.1.2.1.10.94.1.1.5.1.2.4'
+    @oids = [
+      ['upstream_snr_margin', '1.3.6.1.2.1.10.94.1.1.2.1.4.4'],
+      ['upstream_attenuation', '1.3.6.1.2.1.10.94.1.1.2.1.5.4'],
+      ['upstream_output_power', 'adslAturCurrOutputPwr', '1.3.6.1.2.1.10.94.1.1.3.1.7.4'],
+      ['upstream_attainable_rate', 'adslAtucCurrAttainableRate', '1.3.6.1.2.1.10.94.1.1.2.1.8.4'],
+      # ['downstream_rate', 'adslAtucChanCurrTxRate', '1.3.6.1.2.1.10.94.1.1.4.1.2'],
+      ['downstream_snr_margin', 'adslAturCurrSnrMgn', '1.3.6.1.2.1.10.94.1.1.3.1.4.4'],
+      ['downstream_attenuation', 'adslAturCurrAtn', '1.3.6.1.2.1.10.94.1.1.3.1.5.4'],
+      ['downstream_output_power', 'adslAtucCurrOutputPwr', '1.3.6.1.2.1.10.94.1.1.2.1.7.4'],
+      ['downstream_attainable_rate', 'adslAturCurrAttainableRate', '1.3.6.1.2.1.10.94.1.1.3.1.8.4'],
+      ['downstream_rate', 'adslAturChanCurrTxRate', '1.3.6.1.2.1.10.94.1.1.5.1.2.4']
+    ]
   end
 end
