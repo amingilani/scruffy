@@ -7,15 +7,14 @@ class TestRunner
   attr_accessor :test_params
   attr_accessor :test
   attr_accessor :result
+  attr_accessor :error
 
   def initialize
     test
   end
 
-  def test
-    @test = Speedtest::Test.new test_params
-  end
-
+  # The default test params
+  # @return [Hash]
   def test_params
     @test_params ||= {
       download_runs: 1,
@@ -27,42 +26,60 @@ class TestRunner
     }
   end
 
-  def run_at
-    raise 'Test not yet run' if @start_at.nil?
-    @start_at
+  # Define a new test with the default test params
+  # @return [Speedtest]
+  def test
+    @test = Speedtest::Test.new test_params
   end
 
+  # Return the result of the test
+  # @return [Speedtest::run]
   def result
     @start_at ||= Time.now
     if @result.nil?
-      puts "The time is: #{Time.now}"
-      @result = @test.run
+      begin
+        @result = @test.run
+      rescue
+        @result = nil
+      end
     end
     @end_at ||= Time.now
-
     @result
   end
 
+  # Was an error encountered during this test?
+  def error
+    @error ||= false
+  end
+
   def host_info
-    response = HTTParty.get 'https://ifconfig.co/json'
-    JSON.parse(response.body)
+    begin
+      response = HTTParty.get 'https://ifconfig.co/json'
+      result = JSON.parse(response.body)
+    rescue
+      @error = true
+      result = nil
+    end
+    result
   end
 
   def to_data
     {
       local_info: host_info,
       test_params: @test_params,
-      latency: result.latency,
+      latency: latency,
       upload_rate: upload_rate_hash,
       download_rate: download_rate_hash,
-      server: result.server,
-      time: timestamp_hash
+      server: server,
+      time: timestamp_hash,
+      error: error
     }
   end
 
   private
 
   def upload_rate_hash
+    return nil if result.nil?
     {
       raw: result.upload_rate,
       pretty: result.pretty_upload_rate
@@ -70,6 +87,7 @@ class TestRunner
   end
 
   def download_rate_hash
+    return nil if result.nil?
     {
       raw: result.download_rate,
       pretty: result.pretty_download_rate
@@ -81,5 +99,13 @@ class TestRunner
       start_at: @start_at,
       end_at: @end_at
     }
+  end
+
+  def latency
+    result.nil? ? nil : result.latency
+  end
+
+  def server
+    result.nil? ? nil : result.server
   end
 end

@@ -5,18 +5,30 @@ class AdslStats
   include SNMP
 
   attr_accessor :result
+  attr_accessor :error
 
   def initialize
     define_oids
-    Manager.open(host: '192.168.1.1') do |manager|
-      response = manager.get(@oids.map(&:last))
-      @list = response.varbind_list
+    begin
+      Manager.open(host: '192.168.1.1') do |manager|
+        response = manager.get(@oids.map(&:last))
+        @list = response.varbind_list
+      end
+      # result is a hash of oid names and values
+      @result = @list
+                .each_with_index
+                .map { |v, i| [@oids.map(&:first)[i], v.value.to_i] }
+                .to_h
+    rescue
+      @error = true
+      @result = {}
     end
-    # result is a hash of oid names and values
-    @result = @list
-              .each_with_index
-              .map { |v, i| [@oids.map(&:first)[i], v.value.to_i] }
-              .to_h
+    @result[:error] = error
+    @result
+  end
+
+  def error
+    @error ||= false
   end
 
   private
